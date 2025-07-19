@@ -1,0 +1,18 @@
+Disbursement Report API
+
+Created a project from spring initializer 
+dependency
+1. MySQL Driver
+2. Lombok
+3. Spring web
+4. spring data jap
+
+open java project 
+1. controller(for api ) 
+2. service (for business logic)
+3. repository(connect with data base with jpa repo)
+4. model(all the entity)
+
+Make sure to use this... 
+@JsonFormat(pattern = "yyyy-MM-dd")
+    private Date disbursement_date;
