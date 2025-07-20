@@ -4,6 +4,8 @@ import com.Bank.Disbursement_Report._API.Model.Disbursement_Info;
 import com.Bank.Disbursement_Report._API.Service.Disbursement_Service;
 //import jakarta.persistence.Id;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,22 +25,29 @@ public class Disbursement_Controller {
 
 
     @GetMapping("/getAll")
-    public List<Disbursement_Info> GetAllDisbursementInfo(){
+    public ResponseEntity<List<Disbursement_Info>> GetAllDisbursementInfo(){
+        List<Disbursement_Info> getAllDisburse = disbursement_service.getAllDisbursementInfo();
 
-        return disbursement_service.getAllDisbursementInfo();
+        return new ResponseEntity<>(getAllDisburse, HttpStatus.FOUND);
     }
 
     @PostMapping("/createNew")
-    public Disbursement_Info CreateDisbursementData(@RequestBody Disbursement_Info disbursementInfo){
+    ResponseEntity<Disbursement_Info>CreateDisbursementData(@RequestBody Disbursement_Info disbursementInfo){
         System.out.println("Incoming data: " + disbursementInfo);
-        return  disbursement_service.createDisbursementData(disbursementInfo);
+        Disbursement_Info createDisburseData = disbursement_service.createDisbursementData(disbursementInfo);
+        return  new ResponseEntity<>(createDisburseData, HttpStatus.CREATED);
     }
 
     @GetMapping("getById/{id}")
-    public Optional<Disbursement_Info> GetDisbursementById(@PathVariable Long id){
-        return disbursement_service.getDisbursementById(id);
+    ResponseEntity<Optional<Disbursement_Info>> GetDisbursementById(@PathVariable Long id){
+        System.out.print("User looking for " +id+ " ID ");
+        Optional<Disbursement_Info> getDisburseById =  disbursement_service.getDisbursementById(id);
+
+        return new ResponseEntity<>(getDisburseById,HttpStatus.FOUND);
 
 
     }
 
+    /*@PutMapping("update/{id}")
+    RequestBody<>*/
 }

@@ -29,17 +29,35 @@ public class Disbursement_Service {
 
     public Disbursement_Info createDisbursementData(Disbursement_Info disbursementInfo) {
         //System.out.println("New Data Added");
-        disbursement_repo.save(disbursementInfo);
+
+
+        System.out.print("New Data Processing: ");
+        Disbursement_Info addedDisburs = disbursement_repo.save(disbursementInfo);
+        try{
+            return addedDisburs;
+        } catch (Exception e) {
+            System.out.print("Not done");
+
+            return null;
+        }
+
     }
 
 
     public Optional<Disbursement_Info> getDisbursementById(Long id) {
 
 
-        Optional<Disbursement_Info> getDisbursementById = disbursement_repo.findAllById(id);
-        getDisbursementById.ifPresentOrElse(disbursementInfo ->
+        Optional<Disbursement_Info> disbursementById;
+        try {
+            disbursementById = disbursement_repo.findById(id);
+            disbursementById.ifPresentOrElse(
+                    disbursementInfoById -> System.out.print("Found" + disbursementInfoById),
+                    () -> System.out.print("Not Found" + id + "ID"));
 
-                );
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return disbursementById;
     }
 
 }
