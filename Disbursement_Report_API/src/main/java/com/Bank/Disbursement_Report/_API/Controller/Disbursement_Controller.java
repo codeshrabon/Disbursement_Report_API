@@ -1,5 +1,6 @@
 package com.Bank.Disbursement_Report._API.Controller;
 
+import com.Bank.Disbursement_Report._API.DTO.Disbursement_DTO;
 import com.Bank.Disbursement_Report._API.Model.Disbursement_Info;
 import com.Bank.Disbursement_Report._API.Service.Disbursement_Service;
 //import jakarta.persistence.Id;
@@ -20,9 +21,13 @@ public class Disbursement_Controller {
     @Autowired
     private final Disbursement_Service disbursement_service;
 
+    @Autowired
+    private final Disbursement_DTO disbursement_dto;
 
-    public Disbursement_Controller(Disbursement_Service disbursementService) {
+
+    public Disbursement_Controller(Disbursement_Service disbursementService, Disbursement_DTO disbursementDto) {
         disbursement_service = disbursementService;
+        disbursement_dto = disbursementDto;
     }
 
 
@@ -40,10 +45,10 @@ public class Disbursement_Controller {
     }
 
     @PostMapping("/addedInfo")
-    public ResponseEntity<Disbursement_Info> AddedDisbursementData(@RequestBody Disbursement_Info disbursementInfo){
+    public ResponseEntity<Disbursement_DTO> AddedDisbursementData(@RequestBody Disbursement_DTO disbursementDto){
 
         System.out.println("Incoming data: ");
-        Disbursement_Info saveData = disbursement_service.addedDisbursementData(disbursementInfo);
+        Disbursement_DTO saveData = disbursement_service.addedDisbursement(disbursementDto);
 
         return  new ResponseEntity<>(saveData, HttpStatus.ACCEPTED);
 
@@ -55,14 +60,14 @@ public class Disbursement_Controller {
         Optional<Disbursement_Info> findDisbursById = disbursement_service.getDisbursementById(id);
         return new ResponseEntity<>(findDisbursById,HttpStatus.FOUND);
 
+   }
 
-    }
-
-    @PutMapping("updateInfo/{id}")
-    public ResponseEntity<Optional<Disbursement_Info>> UpdateDisbursInfoByid(@RequestBody Disbursement_Info disbursementInfo, @PathVariable Long id){
+    /*@PutMapping("updateInfo/{id}")
+    public ResponseEntity<Optional<Disbursement_DTO>> UpdateDisbursInfoByid(@PathVariable Long id, @RequestBody Disbursement_DTO dto){
         System.out.print("User looking for " + id + "ID");
-        Optional<Disbursement_Info> upadateDisburs = disbursement_service.updateDisburseInfo();
+        Optional<Disbursement_DTO> upadateDisburs = disbursement_service.updateDisburseDTO(id);
         return  new ResponseEntity<>(upadateDisburs, HttpStatus.FOUND);
-    }
+    }*/
+
 
 }

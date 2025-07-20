@@ -13,7 +13,25 @@ ResponseEntity<> method(){
 Optional<Model> List_variable_name = value/expression
 
 }
+***
+public Expression<List<Disbursement_Info>> getAllDisbursementInfo() {
+        List<Disbursement_Info> disbursement_infoList = disbursement_repo.findAll();
+        System.out.println(disbursement_infoList);
+        return disbursement_infoList;
+    }
 2. service (for business logic)
+
+Clean and Correct Way to Update a Record
+Let’s refactor your code so it:
+
+Fetches the existing entity by ID
+
+Updates its properties
+
+Saves it back to the database
+
+Returns the updated object wrapped in Optional
+
 3. repository(connect with data base with jpa repo)
 4. model(all the entity)
 

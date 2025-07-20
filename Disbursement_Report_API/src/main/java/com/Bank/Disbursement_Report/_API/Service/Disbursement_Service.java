@@ -1,21 +1,22 @@
 package com.Bank.Disbursement_Report._API.Service;
 
+import com.Bank.Disbursement_Report._API.DTO.Disbursement_DTO;
 import com.Bank.Disbursement_Report._API.Model.Disbursement_Info;
 import com.Bank.Disbursement_Report._API.Repository.Disbursement_Repository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-
-import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
+import java.util.Scanner;
 
 @Service
 public class Disbursement_Service {
 
     @Autowired
     private final Disbursement_Repository disbursement_repo;
+
+    Scanner scanner = new Scanner(System.in);
 
     public Disbursement_Service(Disbursement_Repository disbursementRepo) {
         disbursement_repo = disbursementRepo;
@@ -34,13 +35,14 @@ public class Disbursement_Service {
 
 
     // Added new disbursement from postman or system
-    public Disbursement_Info addedDisbursementData(Disbursement_Info disbursementInfo) {
+    public Disbursement_DTO addedDisbursement(Disbursement_DTO disbursementDto) {
         //System.out.println("New Data Added");
 
 
-        Disbursement_Info addedDisburs = disbursement_repo.save(disbursementInfo);
+        Disbursement_DTO addedDisburse = disbursement_repo.save(disbursementDto);
+
         try{
-            return addedDisburs;
+            return addedDisburse;
         } catch (Exception e) {
             System.out.print("Not done");
 
@@ -76,8 +78,31 @@ public class Disbursement_Service {
        }
     }
 
+    /*public Optional<Disbursement_DTO> updateDisburseDTO(Long id, Disbursement_DTO dto) {
+        Optional<Disbursement_DTO> updateDibuserInfo = disbursement_repo.findById(id);
+    }*/
 
-    public Optional<Disbursement_Info> updateDisburseInfo() {
-        getDisbursementById();
-    }
+
+    //Update Disbursement info
+    /*public Optional<Disbursement_DTO> updateDisburseInfo(Long id) {
+        try{
+            Optional<Disbursement_Info> updateDisburseInfo = disbursement_repo.findById(id);
+            updateDisburseInfo.ifPresentOrElse(
+                    disbursementInfo ->
+                            disbursementInfo.setAccount_name(scanner.nextLine()
+
+
+
+
+            );
+
+
+
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }*/
+
+
 }
