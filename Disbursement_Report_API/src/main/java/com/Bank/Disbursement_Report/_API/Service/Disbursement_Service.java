@@ -1,6 +1,6 @@
 package com.Bank.Disbursement_Report._API.Service;
 
-import com.Bank.Disbursement_Report._API.DTO.Disbursement_DTO;
+//import com.Bank.Disbursement_Report._API.DTO.Disbursement_DTO;
 import com.Bank.Disbursement_Report._API.Model.Disbursement_Info;
 import com.Bank.Disbursement_Report._API.Repository.Disbursement_Repository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,16 +35,17 @@ public class Disbursement_Service {
 
 
     // Added new disbursement from postman or system
-    public Disbursement_DTO addedDisbursement(Disbursement_DTO disbursementDto) {
+    public Disbursement_Info addedDisbursement(Disbursement_Info disbursement_info) {
         //System.out.println("New Data Added");
 
-
-        Disbursement_DTO addedDisburse = disbursement_repo.save(disbursementDto);
-
         try{
+
+            Disbursement_Info addedDisburse = disbursement_repo.save(disbursement_info);
+            System.out.print("Added data to table: "+ addedDisburse);
             return addedDisburse;
-        } catch (Exception e) {
-            System.out.print("Not done");
+        }
+        catch (Exception e) {
+            System.out.print("Not done" +e.getMessage());
 
             return null;
         }
@@ -78,23 +79,14 @@ public class Disbursement_Service {
        }
     }
 
-    /*public Optional<Disbursement_DTO> updateDisburseDTO(Long id, Disbursement_DTO dto) {
-        Optional<Disbursement_DTO> updateDibuserInfo = disbursement_repo.findById(id);
-    }*/
+
 
 
     //Update Disbursement info
-    /*public Optional<Disbursement_DTO> updateDisburseInfo(Long id) {
+    /*public Optional<Disbursement_Info> updateDisburseInfo(Long id) {
         try{
             Optional<Disbursement_Info> updateDisburseInfo = disbursement_repo.findById(id);
-            updateDisburseInfo.ifPresentOrElse(
-                    disbursementInfo ->
-                            disbursementInfo.setAccount_name(scanner.nextLine()
 
-
-
-
-            );
 
 
 
@@ -103,6 +95,11 @@ public class Disbursement_Service {
             throw new RuntimeException(e);
         }
     }*/
+
+    public Optional<Disbursement_Info> Disbursement_Info(Long id, Disbursement_Info disbursement_info) {
+
+
+    }
 
 
 }

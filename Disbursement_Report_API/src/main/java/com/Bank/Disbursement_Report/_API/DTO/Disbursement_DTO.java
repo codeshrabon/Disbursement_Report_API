@@ -1,13 +1,14 @@
+/*
 package com.Bank.Disbursement_Report._API.DTO;
 
 import com.Bank.Disbursement_Report._API.Model.Disbursement_Info;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.Entity;
+
 
 import java.util.Date;
 
-@Entity
-public class Disbursement_DTO extends Disbursement_Info {
+
+public class Disbursement_DTO{
 
     private String account_name;
     private String loan_account_number;
@@ -160,3 +161,4 @@ public class Disbursement_DTO extends Disbursement_Info {
     }
 }
 
+*/
