@@ -9,6 +9,10 @@ dependency
 
 open java project 
 1. controller(for api ) 
+ResponseEntity<> method(){
+Optional<Model> List_variable_name = value/expression
+
+}
 2. service (for business logic)
 3. repository(connect with data base with jpa repo)
 4. model(all the entity)
