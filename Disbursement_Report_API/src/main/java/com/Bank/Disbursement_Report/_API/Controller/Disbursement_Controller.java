@@ -64,10 +64,24 @@ public class Disbursement_Controller {
 
     @PutMapping("updateInfo/{id}")
     public ResponseEntity<Optional<Disbursement_Info>> UpdateDisbursInfoByid(@PathVariable Long id, @RequestBody Disbursement_Info disbursement_info){
-        System.out.print("User looking for " + id + "ID");
+        System.out.print("User looking for " + id + " ID and About to UPDATE ");
         Optional<Disbursement_Info> upadateDisburs = disbursement_service.Disbursement_Info(id,disbursement_info);
-        return  new ResponseEntity<>(upadateDisburs, HttpStatus.FOUND);
+        System.out.print(id+ " ID is Updated");
+        return  new ResponseEntity<>(upadateDisburs, HttpStatus.ACCEPTED);
     }
+
+
+    //Delete item by ID
+    @DeleteMapping("deleteId/{id}")
+    public ResponseEntity<Disbursement_Info> deleteById(@PathVariable Long id){
+        System.out.print("User want to delete: " + id + " ID ");
+        Disbursement_Info deleteDisburse = disbursement_service.DeleteById(id);
+
+        return new ResponseEntity<>(null, HttpStatus.ACCEPTED);
+
+    }
+
+
 
 
 }
