@@ -44,6 +44,15 @@ public class Disbursement_Controller {
         return disbursement_service.getAllDisbursementInfo();
     }
 
+    //add new disbursement form user
+
+    @PostMapping("/addNewInfo")
+    public ResponseEntity<Disbursement_Info> AddNewDisbursData (@RequestBody Disbursement_Info disbursementInfo){
+        Disbursement_Info addNewDisbursement = disbursement_service.addNewDisbursData(disbursementInfo);
+        return new ResponseEntity<>(addNewDisbursement, HttpStatus.CREATED);
+    }
+
+    //add info from post man
     @PostMapping("/addedInfo")
     public ResponseEntity<Disbursement_Info> AddedDisbursementData(@RequestBody Disbursement_Info disbursementInfo){
 
@@ -65,7 +74,7 @@ public class Disbursement_Controller {
     @PutMapping("updateInfo/{id}")
     public ResponseEntity<Optional<Disbursement_Info>> UpdateDisbursInfoByid(@PathVariable Long id, @RequestBody Disbursement_Info disbursement_info){
         System.out.print("User looking for " + id + " ID and About to UPDATE ");
-        Optional<Disbursement_Info> upadateDisburs = disbursement_service.Disbursement_Info(id,disbursement_info);
+        Optional<Disbursement_Info> upadateDisburs = disbursement_service.updateDisbursement_Info(id,disbursement_info);
         System.out.print(id+ " ID is Updated");
         return  new ResponseEntity<>(upadateDisburs, HttpStatus.ACCEPTED);
     }

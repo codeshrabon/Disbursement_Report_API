@@ -32,9 +32,22 @@ public class Disbursement_Service {
     /*public Disbursement_Info addedDisbursementData(Disbursement_Info disbursementInfo) {
     }*/
 
+    //add new disbursement form user
+
+    public Disbursement_Info addNewDisbursData(Disbursement_Info disbursementInfo) {
+        try{
+            Disbursement_Info addedNewDisburs = disbursement_repo.save(disbursementInfo);
+            System.out.print("Added to DB: " + addedNewDisburs);
+            return addedNewDisburs;
+        } catch (Exception e) {
+            throw new RuntimeException("Not doing right");
+        }
+    }
 
 
-    // Added new disbursement from postman or system
+
+
+    // Added new disbursement from postman
     public Disbursement_Info addedDisbursement(Disbursement_Info disbursement_info) {
         //System.out.println("New Data Added");
 
@@ -80,7 +93,7 @@ public class Disbursement_Service {
     }
 
     // update info by id
-    public Optional<Disbursement_Info> Disbursement_Info(Long id, Disbursement_Info Disbursement_info) {
+    public Optional<Disbursement_Info> updateDisbursement_Info(Long id, Disbursement_Info Disbursement_info) {
 
         try{
             return disbursement_repo.findById(id).map(existingDisbursement_info ->{
@@ -123,4 +136,6 @@ public class Disbursement_Service {
             throw new RuntimeException("Incorrect ID");
         }
     }
+
+
 }
