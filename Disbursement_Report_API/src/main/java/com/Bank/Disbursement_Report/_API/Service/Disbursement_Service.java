@@ -79,27 +79,40 @@ public class Disbursement_Service {
        }
     }
 
+    // update info by id
+    public Optional<Disbursement_Info> Disbursement_Info(Long id, Disbursement_Info Disbursement_info) {
 
-
-
-    //Update Disbursement info
-    /*public Optional<Disbursement_Info> updateDisburseInfo(Long id) {
         try{
-            Optional<Disbursement_Info> updateDisburseInfo = disbursement_repo.findById(id);
+            return disbursement_repo.findById(id).map(existingDisbursement_info ->{
+                existingDisbursement_info.setAccount_name(Disbursement_info.getAccount_name());
+                existingDisbursement_info.setLoan_account_number(Disbursement_info.getLoan_account_number());
+                existingDisbursement_info.setDisbursement_date(Disbursement_info.getDisbursement_date());
+                existingDisbursement_info.setAmount(Disbursement_info.getAmount());
+                existingDisbursement_info.setRate_of_interest(Disbursement_info.getRate_of_interest());
+                existingDisbursement_info.setTenure(Disbursement_info.getTenure());
+                existingDisbursement_info.setType_of_loan(Disbursement_info.getType_of_loan());
+                existingDisbursement_info.setEligible_security_value(Disbursement_info.getEligible_security_value());
+                existingDisbursement_info.setSecurity_coverage(Disbursement_info.getSecurity_coverage());
+                existingDisbursement_info.setSecurity_details_as_per_sanction(Disbursement_info.getSecurity_details_as_per_sanction());
+                existingDisbursement_info.setClient_identification_done_with_varification(Disbursement_info.isClient_identification_done_with_varification());
+                existingDisbursement_info.setGuarantor_identification_done_with_verification(Disbursement_info.isGuarantor_identification_done_with_verification());
+                existingDisbursement_info.setFund_utilization_ensured(Disbursement_info.isFund_utilization_ensured());
+                existingDisbursement_info.setSignal_borrower_exposure_limit(Disbursement_info.getSignal_borrower_exposure_limit());
+                existingDisbursement_info.setCompliance_with_credit_policy(Disbursement_info.isCompliance_with_credit_policy());
+                existingDisbursement_info.setComment(Disbursement_info.getComment());
 
+                return disbursement_repo.save(existingDisbursement_info);
 
-
-
-
-        } catch (Exception e) {
+        });} catch (Exception e) {
             throw new RuntimeException(e);
         }
-    }*/
 
-    public Optional<Disbursement_Info> Disbursement_Info(Long id, Disbursement_Info disbursement_info) {
 
 
     }
+
+
+
 
 
 }
