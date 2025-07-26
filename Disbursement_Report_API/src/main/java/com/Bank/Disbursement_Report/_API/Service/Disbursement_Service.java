@@ -129,11 +129,13 @@ public class Disbursement_Service {
         Optional<Disbursement_Info> deleteById = disbursement_repo.findById(id);
 
         if (deleteById.isPresent()){
-             disbursement_repo.deleteById(id);
-            return deleteById.get();
+
+            Disbursement_Info toDeleteById = deleteById.get();
+            disbursement_repo.deleteById(id);
+            return toDeleteById;
         }else {
 
-            throw new RuntimeException("Incorrect ID");
+            throw new RuntimeException("Incorrect ID : "+ id);
         }
     }
 

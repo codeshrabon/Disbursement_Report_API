@@ -75,14 +75,16 @@ public class Disbursement_Controller {
     }
 
    @GetMapping("getById/{id}")
-   public ResponseEntity<Optional<Disbursement_Info>>GetDisbursementById( @PathVariable Long id){
-        System.out.print("User looking for " + id +"ID ");
+   public ResponseEntity<?>GetDisbursementById( @PathVariable Long id){
+        System.out.print("User looking for " + id +" ID ");
         Optional<Disbursement_Info> findDisbursById = disbursement_service.getDisbursementById(id);
-        return new ResponseEntity<>(findDisbursById,HttpStatus.FOUND);
+        return ResponseEntity.ok(findDisbursById.get());
 
    }
 
+
     @PutMapping("updateInfo/{id}")
+    //@CrossOrigin(origins = "http://localhost:5173")
     public ResponseEntity<?> UpdateDisbursInfoByid(@PathVariable Long id, @RequestBody Disbursement_Info disbursement_info){
         System.out.print("User looking for " + id + " ID and About to UPDATE ");
         Optional<Disbursement_Info> upadateDisburs = disbursement_service.updateDisbursement_Info(id,disbursement_info);
@@ -100,11 +102,11 @@ public class Disbursement_Controller {
 
     //Delete item by ID
     @DeleteMapping("deleteId/{id}")
-    public ResponseEntity<Disbursement_Info> deleteById(@PathVariable Long id){
+    public ResponseEntity<?> deleteById(@PathVariable Long id){
         System.out.print("User want to delete: " + id + " ID ");
         Disbursement_Info deleteDisburse = disbursement_service.DeleteById(id);
 
-        return new ResponseEntity<>(null, HttpStatus.ACCEPTED);
+        return ResponseEntity.ok(deleteDisburse);
 
     }
 
