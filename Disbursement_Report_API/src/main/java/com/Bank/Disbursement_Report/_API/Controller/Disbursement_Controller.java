@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:5173")
 @RequestMapping("api/disbursement")
 public class Disbursement_Controller {
 
@@ -53,13 +54,23 @@ public class Disbursement_Controller {
     }
 
     //add info from post man
-    @PostMapping("/addedInfo")
-    public ResponseEntity<Disbursement_Info> AddedDisbursementData(@RequestBody Disbursement_Info disbursementInfo){
+    @PostMapping("/addedInfoPostman")
+    public ResponseEntity<?> AddedDisbursementData(@RequestBody Disbursement_Info disbursementInfo){
 
-        System.out.println("Incoming data: ");
-        Disbursement_Info saveData = disbursement_service.addedDisbursement(disbursementInfo);
+        System.out.println("Incoming data: " + disbursementInfo);
 
-        return ResponseEntity.ok(saveData);
+        try{
+            Disbursement_Info saveData = disbursement_service.addedDisbursement(disbursementInfo);
+            System.out.print("Saved Successfully "+ saveData);
+            return ResponseEntity.status(HttpStatus.CREATED).body(saveData);
+        }catch (Exception e){
+            System.out.print("Failed to save data " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error saving data: " +e.getMessage());
+        }
+
+
+
+        //return ResponseEntity.ok(saveData);
 
     }
 
@@ -72,11 +83,18 @@ public class Disbursement_Controller {
    }
 
     @PutMapping("updateInfo/{id}")
-    public ResponseEntity<Optional<Disbursement_Info>> UpdateDisbursInfoByid(@PathVariable Long id, @RequestBody Disbursement_Info disbursement_info){
+    public ResponseEntity<?> UpdateDisbursInfoByid(@PathVariable Long id, @RequestBody Disbursement_Info disbursement_info){
         System.out.print("User looking for " + id + " ID and About to UPDATE ");
         Optional<Disbursement_Info> upadateDisburs = disbursement_service.updateDisbursement_Info(id,disbursement_info);
-        System.out.print(id+ " ID is Updated");
-        return  new ResponseEntity<>(upadateDisburs, HttpStatus.ACCEPTED);
+
+
+        if(upadateDisburs.isPresent()){
+            System.out.print(id+ " ID is Updated");
+            return ResponseEntity.ok(upadateDisburs.get());
+        }else{
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Disbursement with ID " +id + " not found");
+        }
+
     }
 
 

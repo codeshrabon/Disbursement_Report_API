@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
+import java.util.concurrent.atomic.AtomicLong;
 
 @Service
 public class Disbursement_Service {
@@ -53,9 +54,8 @@ public class Disbursement_Service {
 
         try{
 
-            Disbursement_Info addedDisburse = disbursement_repo.save(disbursement_info);
-            System.out.print("Added data to table: "+ addedDisburse);
-            return addedDisburse;
+            //System.out.print("Added data to table: "+ addedDisburse);
+            return disbursement_repo.save(disbursement_info);
         }
         catch (Exception e) {
             System.out.print("Not done" +e.getMessage());
@@ -138,4 +138,7 @@ public class Disbursement_Service {
     }
 
 
+//    public Optional<Disbursement_Info> getDisbursementById(AtomicLong id) {
+//        return null;
+//    }
 }

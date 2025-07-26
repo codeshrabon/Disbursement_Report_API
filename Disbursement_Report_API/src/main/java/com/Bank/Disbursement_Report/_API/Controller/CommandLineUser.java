@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Optional;
 import java.util.Scanner;
+import java.util.concurrent.atomic.AtomicLong;
 
 @Component
 public class CommandLineUser implements CommandLineRunner {
@@ -136,37 +137,39 @@ public class CommandLineUser implements CommandLineRunner {
 
                 case 4: System.out.print("User want to update from Disbursement Info table");
                 System.out.print("Which ID you like to edit: ");
-                long idToEdit = scanner.nextLong();
+                Long id = scanner.nextLong();
                 scanner.nextLine();
                 /*service.getDisbursementById(idToEdit);
                 System.out.println("Now edit : " );
                 service.updateDisbursement_Info(idToEdit,Disbursement_Info);*/
 
-                    Optional<Disbursement_Info> infoToupdate = service.getDisbursementById(idToEdit);
+                    Optional<Disbursement_Info> infoToupdate = service.getDisbursementById(id);
                     if (infoToupdate.isPresent()){
                         Disbursement_Info existingDisburs = infoToupdate.get();
                         System.out.print("Current info: " + existingDisburs);
 
                         //now time to update
-                        System.out.print("Enter new data to update: ");
+                        System.out.println("Enter new data to update ");
                         inputFromUser(existingDisburs);
 
                         //updateInfo to save
-                        Optional<Disbursement_Info> updateInfo = service.updateDisbursement_Info(idToEdit,existingDisburs);
+                        Optional<Disbursement_Info> updateInfo = service.updateDisbursement_Info(id,existingDisburs);
 
                         if (updateInfo.isPresent()){
-                            System.out.print("Successfully Updated" + updateInfo);
+                            System.out.print("Update Disbursement: "+ id);
+                            inputFromUser(new Disbursement_Info());
+                            System.out.println("Successfully Updated" + updateInfo);
                         }else {
                             System.out.print("Update fail");
                         }
 
                     }else {
-                        System.out.print("There is no record you are looking for : " + idToEdit);
+                        System.out.print("There is no record you are looking for : " + id);
                     }
                     break;
 
                 case 5: System.out.print("User want to delete");
-                System.out.print("Enter the ID ");
+                System.out.print("Enter the ID : ");
                 Long idToDelete = scanner.nextLong();
                 scanner.nextLine();
                 service.DeleteById(idToDelete);
